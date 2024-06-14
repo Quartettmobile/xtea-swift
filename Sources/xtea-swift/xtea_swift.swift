@@ -27,10 +27,10 @@ public enum XTEA {
     
     /// A 128 bit key, stored as 4 UInt32s
     public struct Key {
-        let k0: UInt32
-        let k1: UInt32
-        let k2: UInt32
-        let k3: UInt32
+        public let k0: UInt32
+        public let k1: UInt32
+        public let k2: UInt32
+        public let k3: UInt32
         
         public init(k0: UInt32, k1: UInt32, k2: UInt32, k3: UInt32) {
             self.k0 = k0
@@ -42,8 +42,8 @@ public enum XTEA {
     
     /// XTEA data, used both for plain text and encrypted data.
     public struct Data: Equatable {
-        let v0: UInt32
-        let v1: UInt32
+        public let v0: UInt32
+        public let v1: UInt32
         
         public init(v0: UInt32, v1: UInt32) {
             self.v0 = v0
