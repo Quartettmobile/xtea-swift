@@ -2,9 +2,21 @@ import XCTest
 @testable import xtea
 
 final class xteaTests: XCTestCase {
-    func testEncryption() throws {
-        let result = xteaEncrypt(data: XTEA.Data(v0: 1, v1: 2), key: XTEA.Key(k0: 1, k1: 2, k2: 3, k3: 4))
+    
+    //    {
+    //        "key": "f5ff9b28dc32c866e65d0706f6a2189c",
+    //        "plaintext": "646d1ff04ff2dd13",
+    //        "ciphertext": "7d8800c594531b78"
+    //    }
+    
+    func testEncryptionSampleCaseFromOurTestVectors() throws {
+        let key = XTEA.Key(k0: 0xf5ff9b28, k1: 0xdc32c866, k2: 0xe65d0706, k3: 0xf6a2189c)
+        let plainText = XTEA.Data(v0: 0x646d1ff0, v1: 0x4ff2dd13)
         
-        XCTAssertEqual(result, XTEA.Data(v0: 1, v1: 2))
+        let result = xteaEncrypt(data: plainText, key: key)
+        
+        XCTAssertEqual(result, XTEA.Data(v0: 0x7d8800c5, v1: 0x94531b78))
     }
 }
+
+
