@@ -29,7 +29,7 @@ import Foundation
 public func xteaEncrypt(data: XTEA.Data, key: XTEA.Key, rounds: Int = 32) -> XTEA.Data {
 
     // magic constant, see https://en.wikipedia.org/wiki/Tiny_Encryption_Algorithm for a tiny bit more info.
-    let delta:UInt32 = 0x9E3779B9
+    let delta: UInt32 = 0x9E3779B9
     var sum: UInt32 = 0
     
     // input data
@@ -48,6 +48,34 @@ public func xteaEncrypt(data: XTEA.Data, key: XTEA.Key, rounds: Int = 32) -> XTE
         v1 &+= (((v0 << 4) ^ (v0 >> 5)) &+ v0) ^ (sum &+ key[Int((sum >> 11) & 3)])
     }
 
+    return XTEA.Data(v0: v0, v1: v1)
+}
+
+/// Encrypt
+/// - Parameters:
+///   - cipherText: the encrypted data to decrypt. 64 bits.
+///   - key: the key to use to decrypt `cipherText`. 128 bits.
+///   - rounds: The number of XTEA cycles to use when decrypting. One XTEA round is two Feistel cypher rounds.
+/// - Returns: The decrypted plain text
+public func xteaDecrypt(cipherText: XTEA.Data, key: XTEA.Key, rounds: Int = 32) -> XTEA.Data {
+
+    // magic constant, see https://en.wikipedia.org/wiki/Tiny_Encryption_Algorithm for a tiny bit more info.
+    let delta: UInt32 = 0x9E3779B9
+    
+    var sum: UInt32 = delta &* UInt32(rounds)
+
+    // input data
+    var v0: UInt32 = cipherText.v0
+    var v1: UInt32 = cipherText.v1
+
+    let key = [key.k0, key.k1, key.k2, key.k3]
+
+    for _ in 1...rounds {
+        v1 &-= (((v0 << 4) ^ (v0 >> 5)) &+ v0) ^ (sum &+ key[Int((sum >> 11) & 3)])
+        sum &-= delta
+        v0 &-= (((v1 << 4) ^ (v1 >> 5)) &+ v1) ^ (sum &+ key[Int(sum & 3)])
+    }
+    
     return XTEA.Data(v0: v0, v1: v1)
 }
 
