@@ -18,6 +18,10 @@ let package = Package(
             name: "XTEA"),
         .testTarget(
             name: "XTEATests",
-            dependencies: ["XTEA"]),
+            dependencies: ["XTEA"],
+            resources: [
+                .process("Resources")
+            ]
+        ),
     ]
 )
