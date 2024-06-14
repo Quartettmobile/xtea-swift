@@ -31,12 +31,24 @@ public enum XTEA {
         let k1: UInt32
         let k2: UInt32
         let k3: UInt32
+        
+        public init(k0: UInt32, k1: UInt32, k2: UInt32, k3: UInt32) {
+            self.k0 = k0
+            self.k1 = k1
+            self.k2 = k2
+            self.k3 = k3
+        }
     }
     
     /// XTEA data, used both for plain text and encrypted data.
     public struct Data: Equatable {
         let v0: UInt32
         let v1: UInt32
+        
+        public init(v0: UInt32, v1: UInt32) {
+            self.v0 = v0
+            self.v1 = v1
+        }
     }
     
 
