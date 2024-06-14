@@ -91,13 +91,13 @@ public enum XTEA {
     ///   - rounds: The number of XTEA cycles to use when decrypting. One XTEA round is two Feistel cypher rounds.
     /// - Returns: The decrypted plain text
     /// - Note: This function is intentionally named `encipher` to follow the Wikipedia naming.
-    public static func decipher(cipherText: XTEA.Data, key: XTEA.Key, rounds: Int = 32) -> XTEA.Data {
+    public static func decipher(data: XTEA.Data, key: XTEA.Key, rounds: Int = 32) -> XTEA.Data {
         
         var sum: UInt32 = delta &* UInt32(rounds)
 
         // input data
-        var v0: UInt32 = cipherText.v0
-        var v1: UInt32 = cipherText.v1
+        var v0: UInt32 = data.v0
+        var v1: UInt32 = data.v1
 
         let key = [key.k0, key.k1, key.k2, key.k3]
 

@@ -17,7 +17,7 @@ final class xteaTests: XCTestCase {
         
         XCTAssertEqual(encrypted, XTEA.Data(v0: 0x7d8800c5, v1: 0x94531b78))
 
-        let decrypted = XTEA.decipher(cipherText: encrypted, key: key)
+        let decrypted = XTEA.decipher(data: encrypted, key: key)
         
         XCTAssertEqual(decrypted, plainText)
     }
@@ -43,7 +43,7 @@ final class xteaTests: XCTestCase {
             let encrypted = XTEA.encipher(data: plainText, key: key)
             XCTAssertEqual(encrypted, ciphertext)
             
-            let decrypted = XTEA.decipher(cipherText: ciphertext, key: key)
+            let decrypted = XTEA.decipher(data: ciphertext, key: key)
             XCTAssertEqual(decrypted, plainText)
         }
     }
